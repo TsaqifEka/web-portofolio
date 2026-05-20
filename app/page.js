@@ -227,11 +227,20 @@ export default function Home() {
                   className="bg-white border-4 border-black shadow-[6px_6px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_rgba(0,0,0,1)] transition-all flex flex-col group p-4"
                 >
                   <div className="h-56 bg-white border-4 border-black rounded-none relative overflow-hidden mb-6">
-                    {project.image_url ? (
+                    {project.image_url && project.image_url !== '-' ? (
+                      // 1. Kalau kamu isi URL gambar manual di Supabase, pakai ini
                       <img src={project.image_url} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                    ) : project.live_url && project.live_url !== '-' ? (
+                      // 2. Kalau gambar kosong TAPI ada link Live URL, generate screenshot otomatis!
+                      <img 
+                        src={`https://image.thum.io/get/width/800/crop/600/noanimate/${project.live_url}`} 
+                        alt={project.title} 
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" 
+                      />
                     ) : (
+                      // 3. Kalau gambar kosong dan tidak ada Live URL (misal project offline)
                       <div className="absolute inset-0 flex items-center justify-center bg-[#f0eee9]">
-                         <span className="font-mono text-xs text-black/50 tracking-widest uppercase">[No_Preview]</span>
+                        <span className="font-mono text-xs text-black/50 tracking-widest uppercase">[No_Preview]</span>
                       </div>
                     )}
                   </div>
