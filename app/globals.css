@@ -19,8 +19,18 @@
   }
 }
 
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Neon Glow Utility for Cyberpunk-Pop Theme */
+.neon-glow {
+  text-shadow:
+    0 0 6px #ff5e00,
+    0 0 12px #b026ff,
+    0 0 18px #00ff00,
+    0 0 24px #ff5e00;
 }
