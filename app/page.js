@@ -11,6 +11,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default function Home() {
   const [projects, setProjects] = useState([]);
+  const [certificates, setCertificates] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -28,6 +29,20 @@ export default function Home() {
       setLoading(false);
     }
     fetchProjects();
+  }, []);
+
+  // Fetch certificates from Supabase
+  useEffect(() => {
+    async function fetchCertificates() {
+      const { data, error } = await supabase
+        .from('certificates')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) console.log(error);
+      else setCertificates(data || []);
+    }
+    fetchCertificates();
   }, []);
 
   // Error display
@@ -271,6 +286,73 @@ export default function Home() {
                       {project.live_url && project.live_url !== '-' && (
                         <a href={project.live_url} target="_blank" rel="noreferrer" className="text-[#3B82F6] hover:underline decoration-2 ml-auto">
                           [Live_Site]
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+          </div>
+        </section>
+
+        {/* Certificates grid section */}
+        <section id="certificates" className="w-full py-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="mb-12 border-b-4 border-black pb-4"
+          >
+            <h2 className="text-5xl font-heading text-black uppercase tracking-tighter">Certificated</h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            {certificates.length === 0 ? (
+              <div className="col-span-full text-center py-20 font-mono text-[#3B82F6] font-bold text-xl bg-white border-4 border-black shadow-[4px_4px_0px_rgba(0,0,0,1)]">
+                [NO_CERTIFICATES_YET]
+              </div>
+            ) : certificates.map((certificate, index) => (
+                <motion.div 
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  key={certificate.id} 
+                  className="bg-white border-4 border-black shadow-[6px_6px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_rgba(0,0,0,1)] transition-all flex flex-col group p-4"
+                >
+                  <div className="h-56 bg-white border-4 border-black rounded-none relative overflow-hidden mb-6">
+                    {certificate.image_url && certificate.image_url !== '-' ? (
+                      // 1. Kalau kamu isi URL gambar manual di Supabase, pakai ini
+                      <img src={certificate.image_url} alt={certificate.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                    ) : certificate.live_url && certificate.live_url !== '-' ? (
+                      // 2. Kalau gambar kosong TAPI ada link Live URL, generate screenshot otomatis!
+                      <img 
+                        src={`https://image.thum.io/get/width/800/crop/600/noanimate/${certificate.live_url}`} 
+                        alt={certificate.title} 
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" 
+                      />
+                    ) : (
+                      // 3. Kalau gambar kosong dan tidak ada Live URL
+                      <div className="absolute inset-0 flex items-center justify-center bg-[#f0eee9]">
+                        <span className="font-mono text-xs text-black/50 tracking-widest uppercase">[No_Preview]</span>
+                      </div>
+                    )}
+                  </div>
+                  
+                  <div className="flex flex-col flex-grow">
+                    <h3 className="text-2xl font-heading text-black uppercase group-hover:text-[#3B82F6] transition-colors duration-300 mb-4 tracking-tight">
+                      {certificate.title}
+                    </h3>
+                    
+                    <p className="text-sm font-mono text-black/80 mb-8 flex-grow leading-relaxed line-clamp-3">
+                      {certificate.description}
+                    </p>
+
+                    <div className="border-t-2 border-black pt-4 font-mono text-xs font-bold uppercase">
+                      {certificate.live_url && certificate.live_url !== '-' && (
+                        <a href={certificate.live_url} target="_blank" rel="noreferrer" className="text-[#3B82F6] hover:underline decoration-2">
+                          [Live_Preview]
                         </a>
                       )}
                     </div>
