@@ -1,16 +1,23 @@
-import './globals.css';
+import './globals.css'
+import ParticlesBackground from './components/ParticlesBackground'
 
 export const metadata = {
-  title: 'Tsaqif_ | Web & IoT Explorer',
-  description: 'Portofolio Tsaqif Eka Putra',
-};
+  title: 'Tsaqif Eka - Portfolio',
+  description: 'Portfolio of Tsaqif Eka - Full-stack Developer',
+}
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="id" className="scroll-smooth">
-      <body className="bg-[#0D0D0D] text-white antialiased">
+    <html lang="id" suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Pavanam&family=Paytone+One&display=swap" rel="stylesheet" />
+      </head>
+      <body className="antialiased selection:bg-gray-700 selection:text-white">
+        <ParticlesBackground />
         {children}
       </body>
     </html>
-  );
+  )
 }
