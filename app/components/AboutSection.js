@@ -30,7 +30,7 @@ export default function AboutSection() {
             Hi, I&apos;m<br />Tsaqif Eka
           </h2>
           <p className="text-[#a0a0a0] text-lg md:text-xl leading-relaxed mb-8">
-            &quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.&quot;
+            &quot;IT student @ Universitas Brawijaya. Aspiring Software Engineer building responsive, scalable web apps. Passionate about exploring new tech, solving problems creatively, and crafting user-centered digital solutions. Let's talk more with me.&quot;
           </p>
 
           <div className="flex items-center gap-6">

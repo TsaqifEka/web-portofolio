@@ -4,6 +4,11 @@ import ParticlesBackground from './components/ParticlesBackground'
 export const metadata = {
   title: 'Tsaqif Eka - Portfolio',
   description: 'Portfolio of Tsaqif Eka - Full-stack Developer',
+  icons: {
+    icon: [
+      { url: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="%23000"/><text x="16" y="22" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="18" fill="%23fff">TE</text></svg>', type: 'image/svg+xml' }
+    ]
+  },
 }
 
 export default function RootLayout({ children }) {
